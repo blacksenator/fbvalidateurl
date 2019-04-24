@@ -1,0 +1,24 @@
+{
+    "name": "blacksenator/fbvalidateurl",
+    "type": "library",
+    "version": "1.0",
+    "keywords": ["URL", "IP", "fritzbox"],
+    "homepage": "https://github.com/blacksenator/fbvalidateurl",
+    "description": "Validating URL adresses to acces FRITZ!Box",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Volker Püschel",
+            "email": "knuffy@anasco.de",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+		"php": ">=7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "blacksenator\\fbvalidateurl\\": "src/"
+        }
+    }
+}

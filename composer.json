@@ -20,5 +20,7 @@
         "psr-4": {
             "blacksenator\\fbvalidateurl\\": "src/"
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

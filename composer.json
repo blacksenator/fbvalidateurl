@@ -1,7 +1,6 @@
 {
     "name": "blacksenator/fbvalidateurl",
     "type": "library",
-    "version": "1.0",
     "keywords": ["URL", "IP", "fritzbox"],
     "homepage": "https://github.com/blacksenator/fbvalidateurl",
     "description": "Validating URL adresses to acces FRITZ!Box",
@@ -21,6 +20,4 @@
             "blacksenator\\fbvalidateurl\\": "src/"
         }
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true
 }

@@ -19,9 +19,9 @@ namespace blacksenator\fbvalidateurl;
 
 class fbvalidateurl
 {
-
     const HOSTNAME = 'fritz.box';
 
+    /** @var array */
     private $url = [];
 
     /**
@@ -38,7 +38,7 @@ class fbvalidateurl
             if (!isset($this->url['path'])) {
                 throw new \Exception($errorMessage);
             } else {
-                if ($this->url['path'] == SELF::HOSTNAME) {
+                if ($this->url['path'] == self::HOSTNAME) {
                     $this->url['host'] = $this->url['path'];
                 } else {
                     if (!inet_pton($this->url['path'])) {
@@ -49,7 +49,7 @@ class fbvalidateurl
                 }
             }
         } else {
-            if ($this->url['host'] != SELF::HOSTNAME && !inet_pton($this->url['host'])) {
+            if ($this->url['host'] != self::HOSTNAME && !inet_pton($this->url['host'])) {
                 throw new \Exception($errorMessage);
             }
         }

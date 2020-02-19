@@ -21,7 +21,6 @@ class fbvalidateurl
 {
     const HOSTNAME = 'fritz.box';
 
-    /** @var array */
     private $url = [];
 
     /**
@@ -38,6 +37,7 @@ class fbvalidateurl
             if (!isset($this->url['path'])) {
                 throw new \Exception($errorMessage);
             } else {
+                $this->url['path'] = strtolower($this->url['path']);
                 if ($this->url['path'] == self::HOSTNAME) {
                     $this->url['host'] = $this->url['path'];
                 } else {

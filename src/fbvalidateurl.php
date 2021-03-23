@@ -55,23 +55,16 @@ class fbvalidateurl
         }
         if (!isset($this->url['scheme'])) {
             if (!isset($this->url['port'])) {
-                $this->url['scheme'] = 'http';
+                $this->url['scheme'] = 'http';                  // default http
             } else {
-                if ($this->url['port'] == '443') {
-                    $this->url['scheme'] = 'https';
-                } else {
-                    $this->url['scheme'] = 'http';
-                }
+                $this->url['port'] == '443' ? $this->url['scheme'] = 'https' : $this->url['scheme'] = 'http';
             }
         } else {
             if (isset($this->url['port'])) {
-                if ($this->url['scheme'] == 'http' && $this->url['port'] == '443') {
+                if (($this->url['scheme'] == 'http' && $this->url['port'] == '443') ||
+                    ($this->url['scheme'] == 'https' && $this->url['port'] == '80')) {
                     throw new \Exception($errorMessage);
                 }
-                if ($this->url['scheme'] == 'https' && $this->url['port'] == '80') {
-                    throw new \Exception($errorMessage);
-                }
-
             }
         }
 

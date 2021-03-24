@@ -13,7 +13,7 @@ namespace blacksenator\fbvalidateurl;
   * ]
   *
   * @author Volker Püschel <knuffy@anasco.de>
-  * @copyright Volker Püschel 2019
+  * @copyright Volker Püschel 2019 - 2021
   * @license MIT
  **/
 
@@ -61,8 +61,11 @@ class fbvalidateurl
             }
         } else {
             if (isset($this->url['port'])) {
-                if (($this->url['scheme'] == 'http' && $this->url['port'] == '443') ||
-                    ($this->url['scheme'] == 'https' && $this->url['port'] == '80')) {
+                if (($this->url['scheme'] == 'http' &&
+                    ($this->url['port'] == '443' || $this->url['port'] == '49443')) ||
+                    ($this->url['scheme'] == 'https' &&
+                    ($this->url['port'] == '80' || $this->url['port'] == '49000')
+                    )) {
                     throw new \Exception($errorMessage);
                 }
             }

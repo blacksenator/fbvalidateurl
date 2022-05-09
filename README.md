@@ -1,4 +1,4 @@
-# fbvalidateurl
+# FbValidateURL
 
 If you want to make a program available that access the interfaces of the FRITZ!Box and you want to ensure that the user has the freedom to enter his router address with or without scheme, with hostname or IP, then this routine could be useful ,
 Not valid addresses lead to an exception. If successful, you return an array corresponding to [parse_url](https://www.php.net/manual/en/function.parse-url.php).
@@ -28,4 +28,4 @@ This script is released under MIT license.
 
 ## Authors
 
-Copyright (c) 2019 - 2021 Volker Püschel
+Copyright© 2019 - 2022 Volker Püschel

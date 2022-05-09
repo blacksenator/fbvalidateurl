@@ -3,28 +3,80 @@
 namespace blacksenator\fbvalidateurl;
 
 /**
-  * The class provides a function to validate and get the URL
-  * structur for FRITZ!Box router
-  * Example:
-  * $url => [
-  *     ['scheme'] => '',   // 'http' or 'https'
-  *     ['host']   => **',  // your given IP or 'fritz.box'
-  *     ['port']   => ''
-  * ]
-  *
-  * @author Volker Püschel <knuffy@anasco.de>
-  * @copyright Volker Püschel 2019 - 2021
-  * @license MIT
- **/
+ * The class provides functions to validate and get the URL structur for
+ * FRITZ!Box router
+ * Example:
+ * $url => [
+ *     ['scheme'] => '',   // 'http' or 'https'
+ *     ['host']   => **',  // your given IP or 'fritz.box'
+ *     ['port']   => ''
+ * ]
+ *
+ * @author Volker Püschel <knuffy@anasco.de>
+ * @copyright Volker Püschel 2019 - 2022
+ * @license MIT
+**/
 
-class fbvalidateurl
+class FbValidateURL
 {
-    const HOSTNAME = 'fritz.box';
+    const HOSTNAME    = 'fritz.box';
+    const SECURE_PORTS = ['443', '49443'];
+    const OPEN_PORTS   = ['80', '49400'];
 
     private $url = [];
+    private $securePorts = [];
+    private $openPorts = [];
+
+    public function __construct()
+    {
+        $this->setSecurePorts();
+        $this->setOpenPorts();
+    }
 
     /**
-     * get an array of valid URL
+     * setting the ports decleared as secure
+     *
+     * @param array $securePorts
+     * @return void
+     */
+    public function setSecurePorts(array $securePorts = null)
+    {
+        $this->securePorts = $securePorts ?? self::SECURE_PORTS;
+    }
+
+    /**
+     * setting the ports decleared as open
+     *
+     * @param array $openPorts
+     * @return void
+     */
+    public function setOpenPorts(array $openPorts = null)
+    {
+        $this->openPorts = $openPorts ?? self::OPEN_PORTS;
+    }
+
+    /**
+     * returns the ports decleared as secure
+     *
+     * @return array $this->securePorts
+     */
+    public function getSecurePorts()
+    {
+        return $this->securePorts;
+    }
+
+    /**
+     * returns the ports decleared as open
+     *
+     * @return array $this->openPorts
+     */
+    public function getOpenPorts()
+    {
+        return $this->openPorts;
+    }
+
+    /**
+     * get an array of valid URL with all components
      *
      * @param string $url
      * @return array $this->url
@@ -57,20 +109,28 @@ class fbvalidateurl
             if (!isset($this->url['port'])) {
                 $this->url['scheme'] = 'http';                  // default http
             } else {
-                $this->url['port'] == '443' ? $this->url['scheme'] = 'https' : $this->url['scheme'] = 'http';
+                $this->isSecurePort($this->url['port']) ? $this->url['scheme'] = 'https' : $this->url['scheme'] = 'http';
             }
         } else {
             if (isset($this->url['port'])) {
-                if (($this->url['scheme'] == 'http' &&
-                    ($this->url['port'] == '443' || $this->url['port'] == '49443')) ||
-                    ($this->url['scheme'] == 'https' &&
-                    ($this->url['port'] == '80' || $this->url['port'] == '49000')
-                    )) {
+                if (($this->url['scheme'] == 'http' && ($this->isSecurePort($this->url['port']))) ||
+                    ($this->url['scheme'] == 'https' && (!$this->isSecurePort($this->url['port'])))) {
                     throw new \Exception($errorMessage);
                 }
             }
         }
 
         return $this->url;
+    }
+
+    /**
+     * returns if a given port is secure
+     *
+     * @param string $port
+     * @return bool
+     */
+    private function isSecurePort(string $port)
+    {
+        return in_array($port, $this->securePorts);
     }
 }

@@ -21,7 +21,7 @@ class FbValidateURL
 {
     const HOSTNAME    = 'fritz.box';
     const SECURE_PORTS = ['443', '49443'];
-    const OPEN_PORTS   = ['80', '49400'];
+    const OPEN_PORTS   = ['80', '49000'];
 
     private $url = [];
     private $securePorts = [];
